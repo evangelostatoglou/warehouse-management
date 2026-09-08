@@ -3,7 +3,7 @@
 
 using System.Data.Common;
 
-namespace WarehouseManagement.Domain.Entities;
+namespace WM.Domain.Entities;
 
 
 public class Product

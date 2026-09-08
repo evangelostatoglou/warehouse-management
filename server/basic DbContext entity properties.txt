@@ -1,0 +1,44 @@
+modelBuilder.Entity<Product>(product =>
+{
+    // One primary key
+    product.HasKey(p => p.Id);
+
+    // Two-column composite primary key
+    product.HasKey(p => new { p.ProductId, p.WarehouseId });
+
+    // Required string column
+    product.Property(p => p.Name)
+        .IsRequired();
+
+    // Maximum string length
+    product.Property(p => p.Name)
+        .HasMaxLength(200);
+
+    // Decimal precision: numeric(12, 2)
+    product.Property(p => p.Price)
+        .HasPrecision(12, 2);
+
+    // Default value
+    product.Property(p => p.IsActive)
+        .HasDefaultValue(true);
+
+    // Database-generated timestamp
+    product.Property(p => p.CreatedAt)
+        .HasDefaultValueSql("CURRENT_TIMESTAMP");
+
+    // Unique single column
+    product.HasIndex(p => p.Sku)
+        .IsUnique();
+
+    // Unique combination of columns
+    product.HasIndex(p => new { p.ProductId, p.WarehouseId })
+        .IsUnique();
+
+    // Check constraint
+    product.ToTable(table =>
+    {
+        table.HasCheckConstraint(
+            "CK_Products_Price_NonNegative",
+            "\"Price\" >= 0");
+    });
+});
