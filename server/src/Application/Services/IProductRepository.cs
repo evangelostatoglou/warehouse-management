@@ -7,4 +7,6 @@ public interface IProductRepository
     Task<IReadOnlyList<Product>> GetAllProductsAsync();
     Task<Product?> GetProductByIdAsync(int id);
     Task CreateProductAsync(Product product);
+    Task UpdateProductAsync(Product product);
+    // Task UpdateProductStatusAsync(bool status, int id);
 }

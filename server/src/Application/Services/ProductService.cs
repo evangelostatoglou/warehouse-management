@@ -45,19 +45,61 @@ public class ProductService : IProductService
     }
 
 
-    public async Task<GetProductResponse> CreateProductAsync(CreateProductRequest p)
+    public async Task<GetProductResponse> CreateProductAsync(CreateProductRequest product)
     {
-        var product = new Product(p.Sku, p.Name, p.Description, p.Price);
+        var p = new Product(product.Sku, product.Name, product.Description, product.Price);
 
-        await _productRepository.CreateProductAsync(product);
+        await _productRepository.CreateProductAsync(p);
 
         return new GetProductResponse
         {
-            Id = product.Id,
-            Sku = product.Sku,
-            Name = product.Name,
-            Price = product.Price,
-            IsActive = product.IsActive
+            Id = p.Id,
+            Sku = p.Sku,
+            Name = p.Name,
+            Price = p.Price,
+            IsActive = p.IsActive
+        };
+    }
+
+
+    public async Task<GetProductResponse?> UpdateProductAsync(UpdateProductRequest product, int id)
+    {
+        
+        var p = await _productRepository.GetProductByIdAsync(id);
+        if(p is null) return null;
+
+        p.Update(product.Sku, product.Name, product.Description, product.Price);
+
+        await _productRepository.UpdateProductAsync(p);
+
+        return new GetProductResponse
+        {
+            Id = p.Id,
+            Sku = p.Sku,
+            Name = p.Name,
+            Price = p.Price,
+            IsActive = p.IsActive
+        };
+    }
+
+    public async Task<GetProductResponse?> UpdateProductStatusAsync(UpdateProductStatusRequest status, int id)
+    {
+        if(status.IsActive is null) return null;
+        var p = await _productRepository.GetProductByIdAsync(id);
+        if(p is null) return null;
+
+        if(status.IsActive == true) p.Activate();
+        else p.Deactivate();
+
+        await _productRepository.UpdateProductAsync(p);
+
+        return new GetProductResponse
+        {
+            Id = p.Id,
+            Sku = p.Sku,
+            Name = p.Name,
+            Price = p.Price,
+            IsActive = p.IsActive
         };
     }
 

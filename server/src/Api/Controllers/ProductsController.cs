@@ -36,11 +36,41 @@ public class ProductsController : ControllerBase
 
 
     [HttpPost]
-    public async Task<ActionResult<GetProductResponse>> CreateProductAsync([FromBody] CreateProductRequest p)
+    public async Task<ActionResult<GetProductResponse>> CreateProductAsync([FromBody] CreateProductRequest product)
     {
-        var product = await _productService.CreateProductAsync(p);
+        var p = await _productService.CreateProductAsync(product);
 
-        return CreatedAtRoute("GetProductByIdRoute", new {id=product.Id}, product);
+        return CreatedAtRoute("GetProductByIdRoute", new {id=p.Id}, p);
     }
+
+    [HttpPut("{id:int}")]
+    public async Task<ActionResult<GetProductResponse>> UpdateProductAsync(int id, [FromBody] UpdateProductRequest product)
+    {
+        var p = await _productService.UpdateProductAsync(product, id);
+        if(p is null) return NotFound();
+        else return Ok(p);
+    }
+
+    [HttpPut("{id:int}/status")]
+    public async Task<ActionResult<GetProductResponse>> UpdateProductStatusAsync(int id, [FromBody] UpdateProductStatusRequest status)
+    {
+        var p = await _productService.UpdateProductStatusAsync(status, id);
+        if(p is null) return NotFound();
+        else return Ok(p);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

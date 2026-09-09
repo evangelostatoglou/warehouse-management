@@ -5,7 +5,21 @@ using System.Data.Common;
 
 namespace WM.Domain.Entities;
 
-
+/// <summary>
+/// int Id
+/// <br/>
+/// string Sku
+/// <br/>
+/// string Name
+/// <br/>
+/// string? Description
+/// <br/>
+/// decimal Price
+/// <br/>
+/// bool IsActive
+/// <br/>
+/// DateTime CreatedAt
+/// </summary>
 public class Product
 {
     public int Id { get; private set; }
