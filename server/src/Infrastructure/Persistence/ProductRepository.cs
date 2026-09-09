@@ -1,5 +1,4 @@
 using Microsoft.EntityFrameworkCore;
-using Npgsql;
 using WM.Application.Services;
 using WM.Domain.Entities;
 

@@ -12,8 +12,8 @@ using WM.Infrastructure.Persistence;
 namespace Infrastructure.Persistence.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20260908151044_ConfigureProductConstraints")]
-    partial class ConfigureProductConstraints
+    [Migration("20260909145542_AddWarehouses")]
+    partial class AddWarehouses
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -70,6 +70,29 @@ namespace Infrastructure.Persistence.Migrations
                         {
                             t.HasCheckConstraint("CK_Products_Price_NonNegative", "\"Price\" >= 0");
                         });
+                });
+
+            modelBuilder.Entity("WM.Domain.Entities.Warehouse", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<String>("Location")
+                        .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<String>("Name")
+                        .IsRequired()
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Warehouses");
                 });
 #pragma warning restore 612, 618
         }

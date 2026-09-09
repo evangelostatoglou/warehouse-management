@@ -51,7 +51,7 @@ public class ProductsController : ControllerBase
         else return Ok(p);
     }
 
-    [HttpPut("{id:int}/status")]
+    [HttpPatch("{id:int}/status")]
     public async Task<ActionResult<GetProductResponse>> UpdateProductStatusAsync(int id, [FromBody] UpdateProductStatusRequest status)
     {
         var p = await _productService.UpdateProductStatusAsync(status, id);

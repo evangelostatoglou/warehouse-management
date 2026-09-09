@@ -11,13 +11,13 @@ namespace Infrastructure.Persistence.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<String>(
                 name: "Sku",
                 table: "Products",
                 type: "character varying(50)",
                 maxLength: 50,
                 nullable: false,
-                oldClrType: typeof(string),
+                oldClrType: typeof(String),
                 oldType: "text");
 
             migrationBuilder.AlterColumn<decimal>(
@@ -30,13 +30,13 @@ namespace Infrastructure.Persistence.Migrations
                 oldClrType: typeof(decimal),
                 oldType: "numeric");
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<String>(
                 name: "Name",
                 table: "Products",
                 type: "character varying(200)",
                 maxLength: 200,
                 nullable: false,
-                oldClrType: typeof(string),
+                oldClrType: typeof(String),
                 oldType: "text");
 
             migrationBuilder.AlterColumn<bool>(
@@ -48,13 +48,13 @@ namespace Infrastructure.Persistence.Migrations
                 oldClrType: typeof(bool),
                 oldType: "boolean");
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<String>(
                 name: "Description",
                 table: "Products",
                 type: "character varying(1000)",
                 maxLength: 1000,
                 nullable: true,
-                oldClrType: typeof(string),
+                oldClrType: typeof(String),
                 oldType: "text",
                 oldNullable: true);
 
@@ -90,12 +90,12 @@ namespace Infrastructure.Persistence.Migrations
                 name: "CK_Products_Price_NonNegative",
                 table: "Products");
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<String>(
                 name: "Sku",
                 table: "Products",
                 type: "text",
                 nullable: false,
-                oldClrType: typeof(string),
+                oldClrType: typeof(String),
                 oldType: "character varying(50)",
                 oldMaxLength: 50);
 
@@ -109,12 +109,12 @@ namespace Infrastructure.Persistence.Migrations
                 oldPrecision: 12,
                 oldScale: 2);
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<String>(
                 name: "Name",
                 table: "Products",
                 type: "text",
                 nullable: false,
-                oldClrType: typeof(string),
+                oldClrType: typeof(String),
                 oldType: "character varying(200)",
                 oldMaxLength: 200);
 
@@ -127,12 +127,12 @@ namespace Infrastructure.Persistence.Migrations
                 oldType: "boolean",
                 oldDefaultValue: true);
 
-            migrationBuilder.AlterColumn<string>(
+            migrationBuilder.AlterColumn<String>(
                 name: "Description",
                 table: "Products",
                 type: "text",
                 nullable: true,
-                oldClrType: typeof(string),
+                oldClrType: typeof(String),
                 oldType: "character varying(1000)",
                 oldMaxLength: 1000,
                 oldNullable: true);

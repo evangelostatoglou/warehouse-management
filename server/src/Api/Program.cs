@@ -7,14 +7,27 @@ using WM.Api.ExceptionHandling;
 var builder = WebApplication.CreateBuilder(args);
 
 var connectionString = builder.Configuration.GetConnectionString("WarehouseDatabase")
-    ?? throw new InvalidOperationException("Connection string 'WarehouseDatabase' was not found.");
+    ?? throw new InvalidOperationException("Connection String 'WarehouseDatabase' was not found.");
 
 builder.Services.AddControllers();
 
 builder.Services.AddDbContext<AppDbContext>(options =>options.UseNpgsql(connectionString));
 
+
+
+// here ill add all the AddScoped
 builder.Services.AddScoped<IProductRepository, ProductRepository>();
 builder.Services.AddScoped<IProductService, ProductService>();
+
+builder.Services.AddScoped<IWarehouseRepository, WarehouseRepository>();
+builder.Services.AddScoped<IWarehouseService, WarehouseService>();
+
+
+
+
+
+
+
 
 builder.Services.AddOpenApi();
 builder.Services.AddProblemDetails();

@@ -6,11 +6,11 @@ modelBuilder.Entity<Product>(product =>
     // Two-column composite primary key
     product.HasKey(p => new { p.ProductId, p.WarehouseId });
 
-    // Required string column
+    // Required String column
     product.Property(p => p.Name)
         .IsRequired();
 
-    // Maximum string length
+    // Maximum String length
     product.Property(p => p.Name)
         .HasMaxLength(200);
 

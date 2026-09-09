@@ -8,8 +8,8 @@ public static class DatabaseBootstrapper
 {
     public static async Task InitializeAsync(
         AppDbContext dbContext,
-        string connectionString,
-        string[] args,
+        String connectionString,
+        String[] args,
         CancellationToken cancellationToken = default)
     {
         await EnsureDatabaseExistsAsync(
@@ -35,17 +35,17 @@ public static class DatabaseBootstrapper
         }
     }
 
-    private static async Task EnsureDatabaseExistsAsync(string connectionString, CancellationToken cancellationToken)
+    private static async Task EnsureDatabaseExistsAsync(String connectionString, CancellationToken cancellationToken)
     {
         var targetBuilder =
             new NpgsqlConnectionStringBuilder(connectionString);
 
         var databaseName = targetBuilder.Database;
 
-        if (string.IsNullOrWhiteSpace(databaseName))
+        if (String.IsNullOrWhiteSpace(databaseName))
         {
             throw new InvalidOperationException(
-                "The connection string must include a database name.");
+                "The connection String must include a database name.");
         }
 
         targetBuilder.Database = "postgres";

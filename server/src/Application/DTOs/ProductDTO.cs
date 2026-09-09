@@ -6,9 +6,9 @@ public class GetProductResponse
 {
     public int Id { get; init; }
 
-    public string Sku { get; init; } = string.Empty;
+    public String Sku { get; init; } = String.Empty;
 
-    public string Name { get; init; } = string.Empty;
+    public String Name { get; init; } = String.Empty;
 
     public decimal Price { get; init; }
 
@@ -19,14 +19,14 @@ public class CreateProductRequest
 {
     [Required]
     [StringLength(50)]
-    public string Sku {get; init;} = String.Empty;
+    public String Sku {get; init;} = String.Empty;
 
     [Required]
     [StringLength(200)]
-    public string Name {get; init;} = String.Empty;
+    public String Name {get; init;} = String.Empty;
 
     [StringLength(1000)]
-    public string? Description {get; init;} = String.Empty;
+    public String? Description {get; init;} = String.Empty;
 
     [Required]
     [Range(0.01, 999999)]
@@ -38,14 +38,14 @@ public class UpdateProductRequest
 {
     [Required]
     [StringLength(50)]
-    public string Sku {get; init;} = String.Empty;
+    public String Sku {get; init;} = String.Empty;
 
     [Required]
     [StringLength(200)]
-    public string Name {get; init;} = String.Empty;
+    public String Name {get; init;} = String.Empty;
 
     [StringLength(1000)]
-    public string? Description {get; init;} = String.Empty;
+    public String? Description {get; init;} = String.Empty;
 
     [Required]
     [Range(0.01, 999999)]

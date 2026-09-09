@@ -1,18 +1,15 @@
 
 
-
-using System.Data.Common;
-
 namespace WM.Domain.Entities;
 
 /// <summary>
 /// int Id
 /// <br/>
-/// string Sku
+/// String Sku
 /// <br/>
-/// string Name
+/// String Name
 /// <br/>
-/// string? Description
+/// String? Description
 /// <br/>
 /// decimal Price
 /// <br/>
@@ -24,11 +21,11 @@ public class Product
 {
     public int Id { get; private set; }
 
-    public string Sku { get; private set; } = null!;
+    public String Sku { get; private set; } = null!;
 
-    public string Name { get; private set; } = null!;
+    public String Name { get; private set; } = null!;
 
-    public string? Description { get; private set; }
+    public String? Description { get; private set; }
 
     public decimal Price { get; private set; }
 
@@ -36,21 +33,14 @@ public class Product
 
     public DateTime CreatedAt { get; private set; }
 
-    private Product()
-    {
-        
-    }
+    private Product(){}
 
-    public Product(string sku, string name, string? description, decimal price)
+    public Product(String sku, String name, String? description, decimal price)
     {
         if (String.IsNullOrWhiteSpace(sku))
-        {
             throw new ArgumentException("SKU is required", nameof(sku));
-        }
-        if (string.IsNullOrWhiteSpace(name))
-        {
-            throw new ArgumentException("Product name is required.", nameof(name));
-        }
+
+        if (String.IsNullOrWhiteSpace(name))
 
         if (price < 0)
         {
@@ -67,17 +57,13 @@ public class Product
         CreatedAt = DateTime.UtcNow;
     }
 
-    public void Update( string sku, string name, string? description, decimal price)
+    public void Update( String sku, String name, String? description, decimal price)
     {
-        if (string.IsNullOrWhiteSpace(sku))
-        {
+        if (String.IsNullOrWhiteSpace(sku))
             throw new ArgumentException("SKU is required.", nameof(sku));
-        }
 
-        if (string.IsNullOrWhiteSpace(name))
-        {
+        if (String.IsNullOrWhiteSpace(name))
             throw new ArgumentException("Product name is required.", nameof(name));
-        }
 
         if (price < 0)
         {
