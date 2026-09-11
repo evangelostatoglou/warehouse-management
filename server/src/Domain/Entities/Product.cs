@@ -41,13 +41,10 @@ public class Product
             throw new ArgumentException("SKU is required", nameof(sku));
 
         if (String.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Name is required",nameof(name));
 
         if (price < 0)
-        {
-            throw new ArgumentException(
-                "Price cannot be negative.",
-                nameof(price));
-        }
+            throw new ArgumentException("Price cannot be negative.",nameof(price));
 
         Sku = sku.Trim();
         Name = name.Trim();
@@ -66,11 +63,8 @@ public class Product
             throw new ArgumentException("Product name is required.", nameof(name));
 
         if (price < 0)
-        {
-            throw new ArgumentException(
-                "Price cannot be negative.",
-                nameof(price));
-        }
+        throw new ArgumentException("Price cannot be negative.", nameof(price));
+
 
         Sku = sku.Trim();
         Name = name.Trim();

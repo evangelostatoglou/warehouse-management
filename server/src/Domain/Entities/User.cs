@@ -43,4 +43,37 @@ public class User
         IsActive = true;
         CreatedAt = DateTime.UtcNow;
     }
+
+    public void Update(String name, String email, char role)
+    {
+        if (String.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Name is required.", nameof(name));
+
+        if (String.IsNullOrWhiteSpace(email))
+            throw new ArgumentException("Email is required.", nameof(email));
+
+        email = email.Trim().ToLowerInvariant();
+
+        if (!email.Contains('@') || email.Length > 255)
+            throw new ArgumentException("Email is invalid.", nameof(email));
+
+        role = char.ToUpperInvariant(role);
+
+        if (role is not ('A' or 'W' or 'S' or 'V'))
+            throw new ArgumentException("Role must be A, W, S, or V.", nameof(role));
+
+        Name = name.Trim();
+        Email = email;
+        Role = role;
+    }
+
+    public void Activate()
+    {
+        IsActive = true;
+    }
+
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
 }

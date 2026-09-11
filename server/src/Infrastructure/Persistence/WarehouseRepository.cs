@@ -23,4 +23,23 @@ public class WarehouseRepository: IWarehouseRepository
             .OrderBy(w => w.Name)
             .ToListAsync();
     }
+
+    public async Task<Warehouse?> GetWarehouseByIdAsync(int id)
+    {
+        return await _dbContext.Warehouses
+            .AsNoTracking()
+            .SingleOrDefaultAsync(w => w.Id == id);
+    }
+
+    public async Task CreateWarehouseAsync(Warehouse warehouse)
+    {
+        _dbContext.Warehouses.Add(warehouse);
+        await _dbContext.SaveChangesAsync();
+    }
+
+    public async Task UpdateWarehouseAsync(Warehouse warehouse)
+    {
+        _dbContext.Warehouses.Update(warehouse);
+        await _dbContext.SaveChangesAsync();
+    }
 }

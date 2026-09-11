@@ -27,6 +27,27 @@ public class Warehouse
         IsActive = true;
     }
 
+    public void Update(String name, String location)
+    {
+        if (String.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Name is required", nameof(name));
+
+        if (String.IsNullOrWhiteSpace(location))
+            throw new ArgumentException("Location is required.", nameof(location));
+
+        Name = name.Trim();
+        Location = location.Trim();
+    }
+
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
+
+    public void Activate()
+    {
+        IsActive = true;
+    }
 
 
 

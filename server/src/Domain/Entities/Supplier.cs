@@ -26,4 +26,31 @@ public class Supplier
         Email = email;
         IsActive = true;
     }
+
+    public void Update(String name, String email)
+    {
+        if (String.IsNullOrWhiteSpace(name))
+            throw new ArgumentException("Supplier name is required.", nameof(name));
+
+        if (String.IsNullOrWhiteSpace(email))
+            throw new ArgumentException("Supplier email is required.", nameof(email));
+
+        email = email.Trim().ToLowerInvariant();
+
+        if (!email.Contains('@') || email.Length > 255)
+            throw new ArgumentException("Supplier email is invalid.", nameof(email));
+
+        Name = name.Trim();
+        Email = email;
+    }
+
+    public void Activate()
+    {
+        IsActive = true;
+    }
+
+    public void Deactivate()
+    {
+        IsActive = false;
+    }
 }

@@ -27,6 +27,20 @@ public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IE
                 Detail = "A product with this SKU already exists."
             },
 
+            DbUpdateException
+            {
+                InnerException: PostgresException
+                {
+                    SqlState: PostgresErrorCodes.UniqueViolation,
+                    ConstraintName: var constraintName
+                }
+            } when (constraintName is not null && constraintName.EndsWith("_Email")) => new ProblemDetails
+            {
+                Status = StatusCodes.Status409Conflict,
+                Title = "Conflict",
+                Detail = "This email already exists."
+            },
+
             ArgumentException => new ProblemDetails
             {
                 Status = StatusCodes.Status400BadRequest,
