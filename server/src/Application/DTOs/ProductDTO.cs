@@ -12,6 +12,8 @@ public class GetProductResponse
 
     public decimal Price { get; init; }
 
+    public int ReorderLevel { get; init; }
+
     public bool IsActive { get; init; }
 }
 
@@ -29,8 +31,11 @@ public class CreateProductRequest
     public String? Description {get; init;} = String.Empty;
 
     [Required]
-    [Range(0.01, 999999)]
+    [Range(0.01, int.MaxValue)]
     public decimal Price {get; init;}
+
+    [Range(0, int.MaxValue)]
+    public int ReorderLevel {get; init;}
 
 }
 
@@ -48,8 +53,11 @@ public class UpdateProductRequest
     public String? Description {get; init;} = String.Empty;
 
     [Required]
-    [Range(0.01, 999999)]
+    [Range(0.01, int.MaxValue)]
     public decimal Price {get; init;}
+
+    [Range(0, int.MaxValue)]
+    public int ReorderLevel {get; init;}
 }
 
 

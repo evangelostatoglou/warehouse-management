@@ -13,6 +13,8 @@ namespace WM.Domain.Entities;
 /// <br/>
 /// decimal Price
 /// <br/>
+/// int ReorderLevel
+/// <br/>
 /// bool IsActive
 /// <br/>
 /// DateTime CreatedAt
@@ -29,13 +31,15 @@ public class Product
 
     public decimal Price { get; private set; }
 
+    public int ReorderLevel { get; private set; }
+
     public bool IsActive { get; private set; }
 
     public DateTime CreatedAt { get; private set; }
 
     private Product(){}
 
-    public Product(String sku, String name, String? description, decimal price)
+    public Product(String sku, String name, String? description, decimal price, int reorderLevel)
     {
         if (String.IsNullOrWhiteSpace(sku))
             throw new ArgumentException("SKU is required", nameof(sku));
@@ -46,15 +50,19 @@ public class Product
         if (price < 0)
             throw new ArgumentException("Price cannot be negative.",nameof(price));
 
+        if (reorderLevel < 0)
+            throw new ArgumentException("Reorder level cannot be negative.", nameof(reorderLevel));
+
         Sku = sku.Trim();
         Name = name.Trim();
         Description = description?.Trim();
         Price = price;
+        ReorderLevel = reorderLevel;
         IsActive = true;
         CreatedAt = DateTime.UtcNow;
     }
 
-    public void Update( String sku, String name, String? description, decimal price)
+    public void Update( String sku, String name, String? description, decimal price, int reorderLevel)
     {
         if (String.IsNullOrWhiteSpace(sku))
             throw new ArgumentException("SKU is required.", nameof(sku));
@@ -65,11 +73,15 @@ public class Product
         if (price < 0)
         throw new ArgumentException("Price cannot be negative.", nameof(price));
 
+        if (reorderLevel < 0)
+            throw new ArgumentException("Reorder level cannot be negative.", nameof(reorderLevel));
+
 
         Sku = sku.Trim();
         Name = name.Trim();
         Description = description?.Trim();
         Price = price;
+        ReorderLevel = reorderLevel;
     }
 
 

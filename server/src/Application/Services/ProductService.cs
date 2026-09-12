@@ -24,6 +24,7 @@ public class ProductService : IProductService
                 Sku = product.Sku,
                 Name = product.Name,
                 Price = product.Price,
+                ReorderLevel = product.ReorderLevel,
                 IsActive = product.IsActive
             })
             .ToList();
@@ -40,6 +41,7 @@ public class ProductService : IProductService
             Sku = product.Sku,
             Name = product.Name,
             Price = product.Price,
+            ReorderLevel = product.ReorderLevel,
             IsActive = product.IsActive
         };
     }
@@ -47,7 +49,7 @@ public class ProductService : IProductService
 
     public async Task<GetProductResponse> CreateProductAsync(CreateProductRequest product)
     {
-        var p = new Product(product.Sku, product.Name, product.Description, product.Price);
+        var p = new Product(product.Sku, product.Name, product.Description, product.Price, product.ReorderLevel);
 
         await _productRepository.CreateProductAsync(p);
 
@@ -57,6 +59,7 @@ public class ProductService : IProductService
             Sku = p.Sku,
             Name = p.Name,
             Price = p.Price,
+            ReorderLevel = p.ReorderLevel,
             IsActive = p.IsActive
         };
     }
@@ -68,7 +71,7 @@ public class ProductService : IProductService
         var p = await _productRepository.GetProductByIdAsync(id);
         if(p is null) return null;
 
-        p.Update(product.Sku, product.Name, product.Description, product.Price);
+        p.Update(product.Sku, product.Name, product.Description, product.Price, product.ReorderLevel);
 
         await _productRepository.UpdateProductAsync(p);
 
@@ -78,6 +81,7 @@ public class ProductService : IProductService
             Sku = p.Sku,
             Name = p.Name,
             Price = p.Price,
+            ReorderLevel = p.ReorderLevel,
             IsActive = p.IsActive
         };
     }
@@ -99,6 +103,7 @@ public class ProductService : IProductService
             Sku = p.Sku,
             Name = p.Name,
             Price = p.Price,
+            ReorderLevel = p.ReorderLevel,
             IsActive = p.IsActive
         };
     }

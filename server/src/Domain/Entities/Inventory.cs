@@ -29,4 +29,17 @@ public class Inventory
         QuantityOnHand = quantityOnHand;
         QuantityReserved = quantityReserved;
     }
+
+    public void Adjust(int quantityChange)
+    {
+        if (quantityChange == 0)
+            throw new ArgumentException("Quantity change cannot be zero.", nameof(quantityChange));
+
+        int newQuantityOnHand = QuantityOnHand + quantityChange;
+
+        if (newQuantityOnHand < QuantityReserved)
+            throw new ArgumentException("Quantity on hand cannot be lower than reserved quantity.", nameof(quantityChange));
+
+        QuantityOnHand = newQuantityOnHand;
+    }
 }

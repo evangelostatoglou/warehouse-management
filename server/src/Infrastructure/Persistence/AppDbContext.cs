@@ -139,11 +139,18 @@ public class AppDbContext : DbContext
             product.Property(p => p.Price)
                 .HasPrecision(12, 2);
 
+            product.Property(p => p.ReorderLevel)
+                .IsRequired()
+                .HasDefaultValue(0);
+
             product.ToTable(table =>
             {
                 table.HasCheckConstraint(
                     "CK_Products_Price_NonNegative",
                     "\"Price\" >= 0");
+                table.HasCheckConstraint(
+                    "CK_Products_ReorderLevel_NonNegative",
+                    "\"ReorderLevel\" >= 0");
             });
 
             product.Property(p => p.IsActive)

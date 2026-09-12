@@ -98,19 +98,22 @@ public static class DatabaseBootstrapper
                 "MOUSE-001",
                 "Wireless Mouse",
                 "Bluetooth wireless mouse",
-                29.99m),
+                29.99m,
+                10),
 
             new(
                 "KEYBOARD-001",
                 "Mechanical Keyboard",
                 "Compact mechanical keyboard",
-                89.99m),
+                89.99m,
+                5),
 
             new(
                 "MONITOR-001",
                 "27-inch Monitor",
                 "27-inch IPS monitor",
-                249.99m)
+                249.99m,
+                3)
         };
 
         dbContext.Products.AddRange(products);
