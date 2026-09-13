@@ -42,4 +42,38 @@ public class Inventory
 
         QuantityOnHand = newQuantityOnHand;
     }
+
+    public void Reserve(int quantity)
+    {
+        if (quantity <= 0)
+            throw new ArgumentException("Quantity must be greater than zero.", nameof(quantity));
+
+        if (QuantityOnHand - QuantityReserved < quantity)
+            throw new InvalidOperationException("Insufficient available stock.");
+
+        QuantityReserved += quantity;
+    }
+
+    public void ReleaseReservation(int quantity)
+    {
+        if (quantity <= 0)
+            throw new ArgumentException("Quantity must be greater than zero.", nameof(quantity));
+
+        if (QuantityReserved < quantity)
+            throw new InvalidOperationException("Cannot release more stock than is reserved.");
+
+        QuantityReserved -= quantity;
+    }
+
+    public void Ship(int quantity)
+    {
+        if (quantity <= 0)
+            throw new ArgumentException("Quantity must be greater than zero.", nameof(quantity));
+
+        if (QuantityReserved < quantity)
+            throw new InvalidOperationException("Cannot ship more stock than is reserved.");
+
+        QuantityOnHand -= quantity;
+        QuantityReserved -= quantity;
+    }
 }

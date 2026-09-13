@@ -48,6 +48,13 @@ public class GlobalExceptionHandler(ILogger<GlobalExceptionHandler> logger) : IE
                 Detail = exception.Message
             },
 
+            InvalidOperationException => new ProblemDetails
+            {
+                Status = StatusCodes.Status409Conflict,
+                Title = "Conflict",
+                Detail = exception.Message
+            },
+
             _ => new ProblemDetails
             {
                 Status = StatusCodes.Status500InternalServerError,

@@ -36,7 +36,7 @@ public class InventoryRepository : IInventoryRepository
             join product in _dbContext.Products.AsNoTracking()
                 on inventory.ProductId equals product.Id
             where product.IsActive
-                && inventory.QuantityOnHand - inventory.QuantityReserved < product.ReorderLevel
+                && inventory.QuantityOnHand - inventory.QuantityReserved <= product.ReorderLevel
             orderby inventory.WarehouseId, inventory.ProductId
             select inventory
         ).ToListAsync();
@@ -75,10 +75,8 @@ public class InventoryRepository : IInventoryRepository
     {
         _dbContext.Inventory.Update(sourceInventory);
 
-        if(destinationIsNew)
-            _dbContext.Inventory.Add(destinationInventory);
-        else
-            _dbContext.Inventory.Update(destinationInventory);
+        if(destinationIsNew) _dbContext.Inventory.Add(destinationInventory);
+        else _dbContext.Inventory.Update(destinationInventory);
 
         await _dbContext.SaveChangesAsync();
     }

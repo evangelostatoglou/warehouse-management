@@ -10,11 +10,8 @@ public class OrderItem
 
     private OrderItem() { }
 
-    public OrderItem(int orderId, int productId, int quantity, decimal unitPrice)
+    public OrderItem(int productId, int quantity, decimal unitPrice)
     {
-        if (orderId <= 0)
-            throw new ArgumentException("Order ID must be greater than zero.", nameof(orderId));
-
         if (productId <= 0)
             throw new ArgumentException("Product ID must be greater than zero.", nameof(productId));
 
@@ -24,7 +21,6 @@ public class OrderItem
         if (unitPrice < 0)
             throw new ArgumentException("Unit price cannot be negative.", nameof(unitPrice));
 
-        OrderId = orderId;
         ProductId = productId;
         Quantity = quantity;
         UnitPrice = unitPrice;

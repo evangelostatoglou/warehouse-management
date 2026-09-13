@@ -16,9 +16,7 @@ public class InventoryController : ControllerBase
     }
 
     [HttpGet]
-    public async Task<ActionResult<IReadOnlyList<GetInventoryResponse>>> GetAllInventoryAsync(
-        [FromQuery] int? warehouseId,
-        [FromQuery] int? productId)
+    public async Task<ActionResult<IReadOnlyList<GetInventoryResponse>>> GetAllInventoryAsync([FromQuery] int? warehouseId, [FromQuery] int? productId)
     {
         var inventory = await _inventoryService.GetAllInventoryAsync(warehouseId, productId);
         return Ok(inventory);

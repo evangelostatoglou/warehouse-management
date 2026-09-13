@@ -3,7 +3,7 @@ using WM.Domain.Entities;
 
 namespace WM.Infrastructure.Persistence;
 
-public class AppDbContext : DbContext
+public class AppDbContext : DbContext 
 {
     public AppDbContext(DbContextOptions<AppDbContext> options) : base(options)
     {
@@ -248,9 +248,19 @@ public class AppDbContext : DbContext
                 .IsRequired()
                 .HasDefaultValue(0);
 
+            order.HasMany(o => o.Items)
+                .WithOne()
+                .HasForeignKey(oi => oi.OrderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             order.HasOne<Customer>()
                 .WithMany()
                 .HasForeignKey(o => o.CustomerId)
+                .OnDelete(DeleteBehavior.Restrict);
+
+            order.HasOne<Warehouse>()
+                .WithMany()
+                .HasForeignKey(o => o.WarehouseId)
                 .OnDelete(DeleteBehavior.Restrict);
 
             order.HasOne<User>()
@@ -283,11 +293,6 @@ public class AppDbContext : DbContext
 
             orderItem.HasIndex(oi => new { oi.OrderId, oi.ProductId })
                 .IsUnique();
-
-            orderItem.HasOne<Order>()
-                .WithMany()
-                .HasForeignKey(oi => oi.OrderId)
-                .OnDelete(DeleteBehavior.Restrict);
 
             orderItem.HasOne<Product>()
                 .WithMany()

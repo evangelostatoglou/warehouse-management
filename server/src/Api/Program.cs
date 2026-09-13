@@ -34,6 +34,9 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IInventoryRepository, InventoryRepository>();
 builder.Services.AddScoped<IInventoryService, InventoryService>();
 
+builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+builder.Services.AddScoped<IOrderService, OrderService>();
+
 
 
 
