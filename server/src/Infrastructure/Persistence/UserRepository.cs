@@ -39,4 +39,15 @@ public class UserRepository : IUserRepository
         _dbContext.Users.Update(user);
         await _dbContext.SaveChangesAsync();
     }
+
+
+    public async  Task<User?> GetUserByEmailAsync(String email)
+    {
+        email = email.Trim().ToLowerInvariant();
+
+        return await _dbContext.Users
+            .AsNoTracking()
+            .SingleOrDefaultAsync(u => u.Email == email);
+    }
+
 }
