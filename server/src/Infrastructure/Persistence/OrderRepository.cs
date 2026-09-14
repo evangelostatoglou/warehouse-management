@@ -46,7 +46,7 @@ public class OrderRepository : IOrderRepository
 
         order.Confirm();
 
-        foreach(var item in order.Items.OrderBy(item => item.ProductId))
+        foreach(var item in order.Items.OrderBy(item => item.ProductId)) // we sort by to reduce the risk of 2 simultaneous orders lock
         {
             var inventory = await GetLockedInventoryAsync(order.WarehouseId, item.ProductId);
             inventory.Reserve(item.Quantity);

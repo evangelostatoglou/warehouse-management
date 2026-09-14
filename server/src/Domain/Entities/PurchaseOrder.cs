@@ -8,6 +8,7 @@ public class PurchaseOrder
     public String Status { get; private set; } = String.Empty;
     public DateTime CreatedAt { get; private set; }
     public int CreatedBy { get; private set; }
+    public List<PurchaseOrderItem> Items { get; private set; } = [];
 
     private PurchaseOrder() { }
 
@@ -27,5 +28,19 @@ public class PurchaseOrder
         CreatedBy = createdBy;
         Status = "DRAFT";
         CreatedAt = DateTime.UtcNow;
+    }
+
+    public void AddItem(int productId, int quantity, decimal unitCost)
+    {
+        var item = new PurchaseOrderItem(productId, quantity, unitCost);
+        Items.Add(item);
+    }
+
+    public void Receive()
+    {
+        if (Status != "DRAFT")
+            throw new InvalidOperationException("Only draft purchase orders can be received.");
+
+        Status = "RECEIVED";
     }
 }

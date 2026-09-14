@@ -369,6 +369,11 @@ public class AppDbContext : DbContext
                 .IsRequired()
                 .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+            purchaseOrder.HasMany(po => po.Items)
+                .WithOne()
+                .HasForeignKey(poi => poi.PurchaseOrderId)
+                .OnDelete(DeleteBehavior.Restrict);
+
             purchaseOrder.HasOne<Supplier>()
                 .WithMany()
                 .HasForeignKey(po => po.SupplierId)
@@ -406,11 +411,6 @@ public class AppDbContext : DbContext
 
             purchaseOrderItem.HasIndex(poi => new { poi.PurchaseOrderId, poi.ProductId })
                 .IsUnique();
-
-            purchaseOrderItem.HasOne<PurchaseOrder>()
-                .WithMany()
-                .HasForeignKey(poi => poi.PurchaseOrderId)
-                .OnDelete(DeleteBehavior.Restrict);
 
             purchaseOrderItem.HasOne<Product>()
                 .WithMany()
