@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WM.Application.DTOs;
 using WM.Application.Services;
@@ -6,6 +7,7 @@ namespace WM.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class CustomersController : ControllerBase
 {
     private readonly ICustomerService _customerService;
@@ -30,6 +32,7 @@ public class CustomersController : ControllerBase
         else return Ok(customer);
     }
 
+    [Authorize(Roles = "A,S")]
     [HttpPost]
     public async Task<ActionResult<GetCustomerResponse>> CreateCustomerAsync([FromBody] CreateCustomerRequest customer)
     {
@@ -37,6 +40,7 @@ public class CustomersController : ControllerBase
         return CreatedAtRoute("GetCustomerByIdRoute", new {id=c.Id}, c);
     }
 
+    [Authorize(Roles = "A,S")]
     [HttpPut("{id:int}")]
     public async Task<ActionResult<GetCustomerResponse>> UpdateCustomerAsync(int id, [FromBody] UpdateCustomerRequest customer)
     {
@@ -45,6 +49,7 @@ public class CustomersController : ControllerBase
         else return Ok(c);
     }
 
+    [Authorize(Roles = "A,S")]
     [HttpPatch("{id:int}/status")]
     public async Task<ActionResult<GetCustomerResponse>> UpdateCustomerStatusAsync(int id, [FromBody] UpdateCustomerStatusRequest status)
     {

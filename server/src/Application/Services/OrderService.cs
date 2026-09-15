@@ -74,11 +74,11 @@ public class OrderService : IOrderService
         };
     }
 
-    public async Task<GetOrderResponse?> CreateOrderAsync(CreateOrderRequest order)
+    public async Task<GetOrderResponse?> CreateOrderAsync(CreateOrderRequest order, int createdBy)
     {
         var customer = await _customerRepository.GetCustomerByIdAsync(order.CustomerId);
         var warehouse = await _warehouseRepository.GetWarehouseByIdAsync(order.WarehouseId);
-        var user = await _userRepository.GetUserByIdAsync(order.CreatedBy);
+        var user = await _userRepository.GetUserByIdAsync(createdBy);
 
         if(customer is null || warehouse is null || user is null) return null;
 
@@ -88,7 +88,7 @@ public class OrderService : IOrderService
         if(order.Items.GroupBy(item => item.ProductId).Any(group => group.Count() > 1))
             throw new ArgumentException("Each product can appear only once in an order.");
 
-        var newOrder = new Order(order.CustomerId, order.WarehouseId, order.CreatedBy);
+        var newOrder = new Order(order.CustomerId, order.WarehouseId, createdBy);
 
         foreach(var item in order.Items)
         {

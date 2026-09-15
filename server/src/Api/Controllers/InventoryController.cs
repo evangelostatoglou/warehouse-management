@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WM.Application.DTOs;
 using WM.Application.Services;
@@ -6,6 +7,7 @@ namespace WM.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class InventoryController : ControllerBase
 {
     private readonly IInventoryService _inventoryService;
@@ -37,6 +39,7 @@ public class InventoryController : ControllerBase
         else return Ok(inventory);
     }
 
+    [Authorize(Roles = "A,W")]
     [HttpPost("adjust")]
     public async Task<ActionResult<GetInventoryResponse>> AdjustInventoryAsync([FromBody] InventoryAdjustmentRequest adjustment)
     {
@@ -45,6 +48,7 @@ public class InventoryController : ControllerBase
         else return Ok(inventory);
     }
 
+    [Authorize(Roles = "A,W")]
     [HttpPost("transfer")]
     public async Task<ActionResult<TransferInventoryResponse>> TransferInventoryAsync([FromBody] InventoryTransferRequest transfer)
     {

@@ -9,7 +9,7 @@ public interface IOrderService
 {
     Task<IReadOnlyList<GetOrderResponse>> GetAllOrdersAsync();
     Task<GetOrderResponse?> GetOrderByIdAsync(int id);
-    Task<GetOrderResponse?> CreateOrderAsync(CreateOrderRequest order);
+    Task<GetOrderResponse?> CreateOrderAsync(CreateOrderRequest order, int createdBy);
     Task<GetOrderResponse?> ConfirmOrderAsync(int id);
     Task<GetOrderResponse?> CancelOrderAsync(int id);
     Task<GetOrderResponse?> ShipOrderAsync(int id);

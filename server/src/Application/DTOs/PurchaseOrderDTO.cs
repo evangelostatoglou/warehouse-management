@@ -34,10 +34,6 @@ public class CreatePurchaseOrderRequest
     [Range(1, int.MaxValue)]
     public int WarehouseId { get; init; }
 
-    [Required]
-    [Range(1, int.MaxValue)]
-    public int CreatedBy { get; init; }
-
     [MinLength(1)]
     public List<CreatePurchaseOrderItemRequest> Items { get; init; } = [];
 }

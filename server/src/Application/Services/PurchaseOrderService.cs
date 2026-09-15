@@ -74,11 +74,11 @@ public class PurchaseOrderService : IPurchaseOrderService
         };
     }
 
-    public async Task<GetPurchaseOrderResponse?> CreatePurchaseOrderAsync(CreatePurchaseOrderRequest purchaseOrder)
+    public async Task<GetPurchaseOrderResponse?> CreatePurchaseOrderAsync(CreatePurchaseOrderRequest purchaseOrder, int createdBy)
     {
         var supplier = await _supplierRepository.GetSupplierByIdAsync(purchaseOrder.SupplierId);
         var warehouse = await _warehouseRepository.GetWarehouseByIdAsync(purchaseOrder.WarehouseId);
-        var user = await _userRepository.GetUserByIdAsync(purchaseOrder.CreatedBy);
+        var user = await _userRepository.GetUserByIdAsync(createdBy);
 
         if(supplier is null || warehouse is null || user is null) return null;
 
@@ -91,7 +91,7 @@ public class PurchaseOrderService : IPurchaseOrderService
         var newPurchaseOrder = new PurchaseOrder(
             purchaseOrder.SupplierId,
             purchaseOrder.WarehouseId,
-            purchaseOrder.CreatedBy);
+            createdBy);
 
         foreach(var item in purchaseOrder.Items)
         {

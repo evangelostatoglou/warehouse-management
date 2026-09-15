@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WM.Application.DTOs;
 using WM.Application.Services;
@@ -6,6 +7,7 @@ namespace WM.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class WarehousesController: ControllerBase
 {
     private readonly IWarehouseService _warehouseService;
@@ -30,6 +32,7 @@ public class WarehousesController: ControllerBase
         else return Ok(warehouse);
     }
 
+    [Authorize(Roles = "A")]
     [HttpPost]
     public async Task<ActionResult<GetWarehouseResponse>> CreateWarehouseAsync([FromBody] CreateWarehouseRequest warehouse)
     {
@@ -38,6 +41,7 @@ public class WarehousesController: ControllerBase
         return CreatedAtRoute("GetWarehouseByIdRoute", new {id=w.Id}, w);
     }
 
+    [Authorize(Roles = "A")]
     [HttpPut("{id:int}")]
     public async Task<ActionResult<GetWarehouseResponse>> UpdateWarehouseAsync(int id, [FromBody] UpdateWarehouseRequest warehouse)
     {
@@ -46,6 +50,7 @@ public class WarehousesController: ControllerBase
         else return Ok(w);
     }
 
+    [Authorize(Roles = "A")]
     [HttpPatch("{id:int}/status")]
     public async Task<ActionResult<GetWarehouseResponse>> UpdateWarehouseStatusAsync(int id, [FromBody] UpdateWarehouseStatusRequest status)
     {

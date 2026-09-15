@@ -9,4 +9,5 @@ public interface IUserRepository
     Task CreateUserAsync(User user);
     Task UpdateUserAsync(User user);
     Task<User?> GetUserByEmailAsync(String email);
+    Task<bool> HasUsersAsync();
 }

@@ -42,7 +42,7 @@ public class AuthService : IAuthService
             register.Name,
             register.Email,
             passwordHash,
-            register.Role);
+            'A');
 
         await _userRepository.CreateUserAsync(user);
 
@@ -55,5 +55,10 @@ public class AuthService : IAuthService
             IsActive = user.IsActive,
             CreatedAt = user.CreatedAt
         };
+    }
+
+    public async Task<bool> HasUsersAsync()
+    {
+        return await _userRepository.HasUsersAsync();
     }
 }

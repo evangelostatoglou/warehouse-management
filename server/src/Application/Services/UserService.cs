@@ -6,10 +6,12 @@ namespace WM.Application.Services;
 public class UserService : IUserService
 {
     private readonly IUserRepository _userRepository;
+    private readonly IPasswordService _passwordService;
 
-    public UserService(IUserRepository userRepository)
+    public UserService(IUserRepository userRepository, IPasswordService passwordService)
     {
         _userRepository = userRepository;
+        _passwordService = passwordService;
     }
 
     public async Task<IReadOnlyList<GetUserResponse>> GetAllUsersAsync()
@@ -45,7 +47,9 @@ public class UserService : IUserService
 
     public async Task<GetUserResponse> CreateUserAsync(CreateUserRequest user)
     {
-        var u = new User(user.Name, user.Email, user.PasswordHash, user.Role);
+        var passwordHash = _passwordService.HashPassword(user.Password);
+
+        var u = new User(user.Name, user.Email, passwordHash, user.Role);
 
         await _userRepository.CreateUserAsync(u);
 

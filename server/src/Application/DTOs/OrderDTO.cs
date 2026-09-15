@@ -33,10 +33,6 @@ public class CreateOrderRequest
     [Range(1, int.MaxValue)]
     public int WarehouseId {get;init;}
 
-    [Required]
-    [Range(1, int.MaxValue)]
-    public int CreatedBy {get;init;}
-
     [MinLength(1)]
     public List<CreateOrderItemRequest> Items {get;init;} = [];
 }

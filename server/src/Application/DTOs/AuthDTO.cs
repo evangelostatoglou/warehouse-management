@@ -19,9 +19,6 @@ public class RegisterRequest
     [StringLength(128, MinimumLength = 8)]
     public String Password {get;init;} = String.Empty;
 
-    [Required]
-    [RegularExpression("^[AWSV]$")]
-    public char Role {get;init;}
 }
 
 public class LoginRequest

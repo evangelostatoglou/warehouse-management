@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WM.Application.DTOs;
 using WM.Application.Services;
@@ -6,6 +7,7 @@ namespace WM.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class ProductsController : ControllerBase
 {
     private readonly IProductService _productService;
@@ -35,6 +37,7 @@ public class ProductsController : ControllerBase
 
 
 
+    [Authorize(Roles = "A,W")]
     [HttpPost]
     public async Task<ActionResult<GetProductResponse>> CreateProductAsync([FromBody] CreateProductRequest product)
     {
@@ -43,6 +46,7 @@ public class ProductsController : ControllerBase
         return CreatedAtRoute("GetProductByIdRoute", new {id=p.Id}, p);
     }
 
+    [Authorize(Roles = "A,W")]
     [HttpPut("{id:int}")]
     public async Task<ActionResult<GetProductResponse>> UpdateProductAsync(int id, [FromBody] UpdateProductRequest product)
     {
@@ -51,6 +55,7 @@ public class ProductsController : ControllerBase
         else return Ok(p);
     }
 
+    [Authorize(Roles = "A,W")]
     [HttpPatch("{id:int}/status")]
     public async Task<ActionResult<GetProductResponse>> UpdateProductStatusAsync(int id, [FromBody] UpdateProductStatusRequest status)
     {

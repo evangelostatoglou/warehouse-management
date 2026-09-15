@@ -24,8 +24,8 @@ public class CreateUserRequest
     public String Email {get; init;} = String.Empty;
 
     [Required]
-    [StringLength(500)]
-    public String PasswordHash {get; init;} = String.Empty;
+    [StringLength(128, MinimumLength = 8)]
+    public String Password {get; init;} = String.Empty;
 
     public char Role {get; init;}
 }

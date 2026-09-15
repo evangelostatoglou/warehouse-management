@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using WM.Application.DTOs;
 using WM.Application.Services;
@@ -6,6 +7,7 @@ namespace WM.Api.Controllers;
 
 [ApiController]
 [Route("api/[controller]")]
+[Authorize]
 public class SuppliersController : ControllerBase
 {
     private readonly ISupplierService _supplierService;
@@ -30,6 +32,7 @@ public class SuppliersController : ControllerBase
         else return Ok(supplier);
     }
 
+    [Authorize(Roles = "A")]
     [HttpPost]
     public async Task<ActionResult<GetSupplierResponse>> CreateSupplierAsync([FromBody] CreateSupplierRequest supplier)
     {
@@ -37,6 +40,7 @@ public class SuppliersController : ControllerBase
         return CreatedAtRoute("GetSupplierByIdRoute", new {id=s.Id}, s);
     }
 
+    [Authorize(Roles = "A")]
     [HttpPut("{id:int}")]
     public async Task<ActionResult<GetSupplierResponse>> UpdateSupplierAsync(int id, [FromBody] UpdateSupplierRequest supplier)
     {
@@ -45,6 +49,7 @@ public class SuppliersController : ControllerBase
         else return Ok(s);
     }
 
+    [Authorize(Roles = "A")]
     [HttpPatch("{id:int}/status")]
     public async Task<ActionResult<GetSupplierResponse>> UpdateSupplierStatusAsync(int id, [FromBody] UpdateSupplierStatusRequest status)
     {

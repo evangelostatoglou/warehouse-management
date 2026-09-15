@@ -50,4 +50,8 @@ public class UserRepository : IUserRepository
             .SingleOrDefaultAsync(u => u.Email == email);
     }
 
+    public async Task<bool> HasUsersAsync()
+    {
+        return await _dbContext.Users.AnyAsync();
+    }
 }
