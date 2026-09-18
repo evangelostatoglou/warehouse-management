@@ -40,7 +40,7 @@ public class OrdersController: ControllerBase
     public async Task<ActionResult<GetOrderResponse>> CreateOrderAsync([FromBody] CreateOrderRequest order)
     {
         var userIdValue = User
-            .FindFirst(ClaimTypes.NameIdentifier)?
+            .FindFirst("Id")?
             .Value;
 
         if(!int.TryParse(userIdValue, out int userId))

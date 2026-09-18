@@ -66,7 +66,7 @@ public class AuthController : ControllerBase
     public async Task<ActionResult<GetUserResponse>> GetCurrentUserAsync()
     {
         var userIdValue = User
-            .FindFirst(ClaimTypes.NameIdentifier)?
+            .FindFirst("Id")?
             .Value;
 
         if(!int.TryParse(userIdValue, out int userId))

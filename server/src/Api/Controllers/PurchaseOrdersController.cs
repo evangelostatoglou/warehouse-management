@@ -41,7 +41,7 @@ public class PurchaseOrdersController: ControllerBase
         [FromBody] CreatePurchaseOrderRequest purchaseOrder)
     {
         var userIdValue = User
-            .FindFirst(ClaimTypes.NameIdentifier)?
+            .FindFirst("Id")?
             .Value;
 
         if(!int.TryParse(userIdValue, out int userId))
